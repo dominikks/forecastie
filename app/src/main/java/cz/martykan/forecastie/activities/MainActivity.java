@@ -249,11 +249,15 @@ public class MainActivity extends BaseActivity implements LocationListener {
             finish();
             overridePendingTransition(0, 0);
             startActivity(getIntent());
-        } else if (shouldUpdate() && isNetworkAvailable()) {
-            getTodayWeather();
-            getLongTermWeather();
-            getTodayUVIndex();
         }
+//        else if (shouldUpdate() && isNetworkAvailable()) {
+//            getTodayWeather();
+//            getLongTermWeather();
+//            getTodayUVIndex();
+//        }
+
+        getLongTermWeather();
+
         if (firstRun) {
             tapGraph.setText(getString(R.string.tap_for_graphs));
             prefs.edit().putBoolean("firstRun",false).commit();
@@ -570,9 +574,10 @@ public class MainActivity extends BaseActivity implements LocationListener {
 
     public void refreshWeather() {
         if (isNetworkAvailable()) {
-            getTodayWeather();
             getLongTermWeather();
-            getTodayUVIndex();
+            // Disable Long weather and UVI requests
+            // getTodayWeather();
+            // getTodayUVIndex();
         } else {
             Snackbar.make(appView, getString(R.string.msg_connection_not_available), Snackbar.LENGTH_LONG).show();
         }
